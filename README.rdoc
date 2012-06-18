@@ -1,0 +1,4 @@
+== Reporting tool for Pivotal Tracker projects to see the velocity per user.
+
+You need to export the CSV of your Pivotal Tracker project and execute this command:
+./stats.rb <Your CSV File Here>
