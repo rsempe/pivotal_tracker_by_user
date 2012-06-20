@@ -4,8 +4,7 @@ require 'rubygems'
 require 'fastercsv'
 require 'active_support/core_ext/enumerable'
 require 'time'
-require 'story'
-require 'output'
+Dir['models/*.rb'].each { |file| require file }
 
 if ARGV.length != 1
   puts "Usage: #{__FILE__} <Your CSV file>"
@@ -18,6 +17,7 @@ FasterCSV.foreach(ARGV.first, :headers => true) do |row|
   unless (date = row["Accepted at"]).nil?
     user = row["Owned By"].nil? ? "Unassigned" : row["Owned By"]
     stories << Story.new(user, row["Estimate"].to_i, date, row["Iteration"])
+
     dates << Time.parse(row["Iteration End"])
   end
 end
