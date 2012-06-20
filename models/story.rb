@@ -30,4 +30,17 @@ class Story
     Story.group_by_iteration(stories).collect { |i| i.last.count }
   end
 
+  def self.number(tasks, iterations)
+    list = []
+    tasks.group_by(&:iteration).each { |iteration, tasks| list << [tasks.count, iteration] }
+    (iterations.collect(&:first) - list.collect(&:last)).each { |i| list << [0, i] } if list.size != iterations.size
+    list.sort_by { |i| i.last.to_i }
+  end
+
+  def self.total(tasks)
+    total = []
+    Story.group_by_iteration(tasks).each { |iteration, tasks| total << tasks.count }
+    total
+  end
+
 end

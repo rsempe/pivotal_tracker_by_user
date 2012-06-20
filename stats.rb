@@ -31,10 +31,6 @@ dates = dates.uniq!.sort
 
 output.number_of_iterations(iterations, dates)
 output.global_info(dates, Feature.sum_total(features), Story.number_by_iteration(bugs), Story.number_by_iteration(chores))
-output.dates_of_iterations(dates)
-
-Story.group_by_user(features).each do |user, features_list|
-  output.iterations_for_user(user, Feature.sum_points(features_list, iterations))
-end
-
-output.iterations_total(Feature.sum_total(features))
+output.features_info(dates, features, iterations)
+output.bugs_info(dates, bugs, iterations)
+output.chores_info(dates, chores, iterations)
