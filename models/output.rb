@@ -26,12 +26,11 @@ class Output
     puts "#{format_user("Total Points", length_username.length)} | #{points.collect { |point| format_number(point, 5) }.join(" | ")} |"
   end
 
-  def bugs_total(bugs)
-    puts "#{format_user("Total Bugs", length_username.length)} | #{bugs.collect { |bug| format_number(bug, 5) }.join(" | ")} |"
-  end
-
-  def chores_total(chores)
-    puts "#{format_user("Total Chores", length_username.length)} | #{chores.collect { |bug| format_number(bug, 5) }.join(" | ")} |"
+  def global_info(dates, features, bugs, chores)
+    dates_of_iterations(dates)
+    iterations_total(features)
+    bugs_total(bugs)
+    chores_total(chores)
   end
 
   ### Private Methods ###
@@ -45,6 +44,14 @@ class Output
 
   def format_user(user, padding)
     "\e[36m#{user.ljust(padding)}\e[0m"
+  end
+
+  def bugs_total(bugs)
+    puts "#{format_user("Total Bugs", length_username.length)} | #{bugs.collect { |bug| format_number(bug, 5) }.join(" | ")} |"
+  end
+
+  def chores_total(chores)
+    puts "#{format_user("Total Chores", length_username.length)} | #{chores.collect { |bug| format_number(bug, 5) }.join(" | ")} |"
   end
 
 end
