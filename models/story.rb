@@ -1,13 +1,16 @@
-class Story
+require 'models/task'
+
+class Story < Task
 
   ### Attributes ###
 
-  attr_accessor :user, :points, :date, :iteration
+  attr_accessor :points
 
   ### Instance Methods ###
 
   def initialize(user, points, date, iteration)
-    @user, @points, @date, @iteration = user, points, date, iteration
+    super(user, date, iteration)
+    @points = points
   end
 
   ### Class Methods ###
