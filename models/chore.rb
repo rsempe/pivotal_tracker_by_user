@@ -1,5 +1,5 @@
-require 'models/task'
+require 'models/story'
 
-class Chore < Task
+class Chore < Story
 
 end

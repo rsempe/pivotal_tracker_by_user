@@ -1,5 +1,5 @@
-require 'models/task'
+require 'models/story'
 
-class Bug < Task
+class Bug < Story
 
 end
