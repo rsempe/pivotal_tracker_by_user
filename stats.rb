@@ -29,7 +29,7 @@ iterations = Story.group_by_iteration(features)
 
 output = Output.new(Story.users(features).max_by(&:length))
 
-output.number_of_iterations(iterations)
+output.number_of_iterations(iterations, dates)
 
 output.dates_of_iterations(dates = dates.uniq!.sort)
 output.iterations_total(Feature.sum_total(features))

@@ -10,12 +10,12 @@ class Output
     @length_username = length_username
   end
 
-  def number_of_iterations(iterations)
-    puts "\n\e[1;32m#{iterations.size} Iterations\e[0m"
+  def number_of_iterations(iterations, dates)
+    puts "\n\e[4;36m#{iterations.size} Iterations from #{dates.first.strftime("%m/%d/%y")} to #{dates.last.strftime("%m/%d/%y")}\e[0m"
   end
 
   def dates_of_iterations(dates)
-    puts "\n#{format_user("Dates", length_username.length)} | #{dates.collect { |date| "\e[33m" + date.strftime("%m/%d").ljust(5) + "\e[0m"}.join(" | ")} |\n\n"
+    puts "\n#{format_user("Dates", length_username.length)} | #{dates.collect { |date| "\e[33m" + date.strftime("%m/%d").ljust(5) + "\e[0m"}.join(" | ")} |"
   end
 
   def iterations_for_user(user, points)
@@ -23,15 +23,15 @@ class Output
   end
 
   def iterations_total(points)
-    puts "\n#{format_user("Total Points", length_username.length)} | #{points.collect { |point| format_number(point, 5) }.join(" | ")} |\n\n"
+    puts "#{format_user("Total Points", length_username.length)} | #{points.collect { |point| format_number(point, 5) }.join(" | ")} |"
   end
 
   def bugs_total(bugs)
-    puts "\n#{format_user("Total Bugs", length_username.length)} | #{bugs.collect { |bug| format_number(bug, 5) }.join(" | ")} |\n\n"
+    puts "#{format_user("Total Bugs", length_username.length)} | #{bugs.collect { |bug| format_number(bug, 5) }.join(" | ")} |"
   end
 
   def chores_total(chores)
-    puts "\n#{format_user("Total Chores", length_username.length)} | #{chores.collect { |bug| format_number(bug, 5) }.join(" | ")} |\n\n"
+    puts "#{format_user("Total Chores", length_username.length)} | #{chores.collect { |bug| format_number(bug, 5) }.join(" | ")} |"
   end
 
   ### Private Methods ###
