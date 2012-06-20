@@ -12,18 +12,6 @@ class Story
 
   ### Class Methods ###
 
-  def self.feature?(type)
-    type == 'feature'
-  end
-
-  def self.bug?(type)
-    type == 'bug'
-  end
-
-  def self.chore?(type)
-    type == 'chore'
-  end
-
   def self.group_by_iteration(stories)
     stories.group_by(&:iteration).sort_by { |array| array.first.to_i }
   end
@@ -36,6 +24,10 @@ class Story
     users = []
     stories.group_by(&:user).each { |user, stories| users << user }
     users
+  end
+
+  def self.number_by_iteration(stories)
+    Story.group_by_iteration(stories).collect { |i| i.last.count }
   end
 
 end

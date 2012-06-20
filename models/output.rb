@@ -15,7 +15,7 @@ class Output
   end
 
   def dates_of_iterations(dates)
-    puts "\n#{"".ljust(length_username.length)} | #{dates.collect { |date| "\e[33m" + date.strftime("%m/%d").ljust(5) + "\e[0m"}.join(" | ")} |\n\n"
+    puts "\n#{format_user("Dates", length_username.length)} | #{dates.collect { |date| "\e[33m" + date.strftime("%m/%d").ljust(5) + "\e[0m"}.join(" | ")} |\n\n"
   end
 
   def iterations_for_user(user, points)
@@ -23,7 +23,15 @@ class Output
   end
 
   def iterations_total(points)
-    puts "\n#{format_user("Total", length_username.length)} | #{points.collect { |point| format_number(point, 5) }.join(" | ")} |\n\n"
+    puts "\n#{format_user("Total Points", length_username.length)} | #{points.collect { |point| format_number(point, 5) }.join(" | ")} |\n\n"
+  end
+
+  def bugs_total(bugs)
+    puts "\n#{format_user("Total Bugs", length_username.length)} | #{bugs.collect { |bug| format_number(bug, 5) }.join(" | ")} |\n\n"
+  end
+
+  def chores_total(chores)
+    puts "\n#{format_user("Total Chores", length_username.length)} | #{chores.collect { |bug| format_number(bug, 5) }.join(" | ")} |\n\n"
   end
 
   ### Private Methods ###

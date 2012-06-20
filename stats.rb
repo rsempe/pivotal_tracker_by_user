@@ -28,8 +28,15 @@ end
 iterations = Story.group_by_iteration(features)
 
 output = Output.new(Story.users(features).max_by(&:length))
+
 output.number_of_iterations(iterations)
-output.dates_of_iterations(dates.uniq!.sort)
+
+output.dates_of_iterations(dates = dates.uniq!.sort)
+output.iterations_total(Feature.sum_total(features))
+output.bugs_total(Story.number_by_iteration(bugs))
+output.chores_total(Story.number_by_iteration(chores))
+
+output.dates_of_iterations(dates)
 
 Story.group_by_user(features).each do |user, features_list|
   output.iterations_for_user(user, Feature.sum_points(features_list, iterations))
