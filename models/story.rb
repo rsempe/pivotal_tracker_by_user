@@ -15,20 +15,6 @@ class Story < Task
 
   ### Class Methods ###
 
-  def self.group_by_iteration(stories)
-    stories.group_by(&:iteration).sort_by { |array| array.first.to_i }
-  end
-
-  def self.group_by_user(stories)
-    stories.group_by(&:user).sort_by(&:first)
-  end
-
-  def self.users(stories)
-    users = []
-    stories.group_by(&:user).each { |user, stories| users << user }
-    users
-  end
-
   def self.sum_points(stories, iterations)
     points = []
     stories.group_by(&:iteration).each { |iteration, stories| points << [stories.sum(&:points), iteration] }
