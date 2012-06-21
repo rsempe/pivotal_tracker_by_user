@@ -17,9 +17,9 @@ class Output
   def global_info(dates, features, bugs, chores)
     puts "\n\e[4;35mGlobal statistics:\e[0m"
     dates_of_iterations(dates)
-    points_total(features)
-    bugs_total(bugs)
-    chores_total(chores)
+    total('Total POINTS', features)
+    total('Number of Bugs', bugs)
+    total('Number of Chores', chores)
   end
 
   def features_info(dates, features, iterations)
@@ -28,7 +28,7 @@ class Output
     Story.group_by_user(features).each do |user, features_list|
       iterations_for_user(user, Feature.sum_points(features_list, iterations))
     end
-    points_total(Feature.sum_total(features))
+    total('Total POINTS', Feature.sum_total(features))
   end
 
   def bugs_info(dates, bugs, iterations)
@@ -37,7 +37,7 @@ class Output
     Story.group_by_user(bugs).each do |user, bugs_list|
       iterations_for_user(user, Story.number(bugs_list, iterations))
     end
-    bugs_total(Story.total(bugs))
+    total'Number of Bugs', (Story.total(bugs))
   end
 
   def chores_info(dates, chores, iterations)
@@ -46,7 +46,8 @@ class Output
     Story.group_by_user(chores).each do |user, chores_list|
       iterations_for_user(user, Story.number(chores_list, iterations))
     end
-    chores_total(Story.total(chores))
+    total('Number of Chores', Story.total(chores))
+    puts "\n"
   end
 
   ### Private Methods ###
@@ -63,23 +64,15 @@ class Output
   end
 
   def dates_of_iterations(dates)
-    puts "\n#{format_user("Dates", length_username.length)} | #{dates.collect { |date| "\e[33m" + date.strftime("%m/%d").ljust(5) + "\e[0m"}.join(" | ")} |"
+    puts "\n#{format_user("Dates", length_username.length)} | #{dates.collect { |date| "\e[35m" + date.strftime("%m/%d").ljust(5) + "\e[0m"}.join(" | ")} |"
   end
 
   def iterations_for_user(user, points)
     puts "#{format_user(user, length_username.length)} | #{points.collect { |point| format_number(point.first, 5) }.join(" | ")} |"
   end
 
-  def points_total(points)
-    puts "#{format_user("Total Points", length_username.length)} | #{points.collect { |point| "\e[35m#{point.to_s.ljust(5)}\e[0m" }.join(" | ")} |"
-  end
-
-  def bugs_total(bugs)
-    puts "#{format_user("Total Bugs", length_username.length)} | #{bugs.collect { |bug| "\e[35m#{bug.to_s.ljust(5)}\e[0m" }.join(" | ")} |"
-  end
-
-  def chores_total(chores)
-    puts "#{format_user("Total Chores", length_username.length)} | #{chores.collect { |chore| "\e[35m#{chore.to_s.ljust(5)}\e[0m" }.join(" | ")} |"
+  def total(text, tasks)
+    puts "#{format_user(text, length_username.length)} | #{tasks.collect { |task| "\e[1;33m#{task.to_s.ljust(5)}\e[0m" }.join(" | ")} |"
   end
 
 end
