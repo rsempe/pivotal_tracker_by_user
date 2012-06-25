@@ -26,7 +26,7 @@ class Output
     puts "\n\e[4;35mFeature Points statistics:\e[0m"
     dates_of_iterations(dates)
     Story.group_by_user(features).each do |user, features_list|
-      iterations_for_user(user, Feature.sum_points(features_list, iterations))
+      iterations_for_user(user, Feature.sum_points(features_list, iterations), 'feature')
     end
     total('Total POINTS', Feature.sum_total(features))
   end
@@ -35,7 +35,7 @@ class Output
     puts "\n\e[4;35mBugs statistics:\e[0m"
     dates_of_iterations(dates)
     Story.group_by_user(bugs).each do |user, bugs_list|
-      iterations_for_user(user, Story.number(bugs_list, iterations))
+      iterations_for_user(user, Story.number(bugs_list, iterations), 'bug')
     end
     total'Number of Bugs', (Story.total(bugs))
   end
@@ -44,7 +44,7 @@ class Output
     puts "\n\e[4;35mChores statistics:\e[0m"
     dates_of_iterations(dates)
     Story.group_by_user(chores).each do |user, chores_list|
-      iterations_for_user(user, Story.number(chores_list, iterations))
+      iterations_for_user(user, Story.number(chores_list, iterations), 'chore')
     end
     total('Number of Chores', Story.total(chores))
     puts "\n"
@@ -54,8 +54,8 @@ class Output
 
   private
 
-  def format_number(value, padding)
-    color = (0..9).include?(value) ? "1;31" : (10..19).include?(value) ? "1;32" : "1;33"
+  def format_number(value, padding, type)
+    color = type == 'feature' ? ((0..9).include?(value) ? "1;31" : (10..19).include?(value) ? "1;33" : "1;32") : "1;33"
     "\e[#{color}m#{value.to_s.ljust(padding)}\e[0m"
   end
 
@@ -67,12 +67,12 @@ class Output
     puts "\n#{format_user("Dates", length_username.length)} | #{dates.collect { |date| "\e[35m" + date.strftime("%m/%d").ljust(5) + "\e[0m"}.join(" | ")} |"
   end
 
-  def iterations_for_user(user, points)
-    puts "#{format_user(user, length_username.length)} | #{points.collect { |point| format_number(point.first, 5) }.join(" | ")} |"
+  def iterations_for_user(user, points, type)
+    puts "#{format_user(user, length_username.length)} | #{points.collect { |point| format_number(point.first, 5, type) }.join(" | ")} |"
   end
 
   def total(text, tasks)
-    puts "#{format_user(text, length_username.length)} | #{tasks.collect { |task| "\e[1;33m#{task.to_s.ljust(5)}\e[0m" }.join(" | ")} |"
+    puts "#{format_user(text, length_username.length)} | #{tasks.collect { |task| "\e[1;32m#{task.to_s.ljust(5)}\e[0m" }.join(" | ")} |"
   end
 
 end
