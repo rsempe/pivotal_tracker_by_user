@@ -14,4 +14,4 @@ Now you can execute this command:
 
 ### Output
 
-![Pivotal Tracker per User](http://img542.imageshack.us/img542/8351/pivotaltrackerperuser.jpg)
+![Pivotal Tracker per User](http://sempe.me/assets/images/pivotal_tracker_per_user.jpg)
